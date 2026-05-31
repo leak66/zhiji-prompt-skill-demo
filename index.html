@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>知技 ZhiJi | AI Skill Passport</title>
+    <link rel="stylesheet" href="./styles.css">
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar" aria-label="主导航">
+        <a class="brand" href="#home" aria-label="知技首页">
+          <span class="brand-mark">知</span>
+          <span>
+            <strong>知技</strong>
+            <small>ZhiJi</small>
+          </span>
+        </a>
+        <nav class="nav-stack">
+          <a href="#home" data-route="home">总览</a>
+          <a href="#test" data-route="test">能力测试</a>
+          <a href="#passport" data-route="passport">Skill Passport</a>
+          <a href="#workbench" data-route="workbench">Prompt 工作台</a>
+          <a href="#library" data-route="library">Library</a>
+          <a href="#export" data-route="export">Export</a>
+        </nav>
+        <div class="profile-chip">
+          <span id="navPersona">未测评</span>
+          <strong id="navScore">--</strong>
+        </div>
+      </aside>
+
+      <main>
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">知己 - 知技 Prompt Skill</p>
+            <h1 id="pageTitle">先弄清你要 AI 帮什么，再生成最适合你的问法。</h1>
+          </div>
+          <div class="topbar-actions">
+            <button class="icon-button" id="themeToggle" type="button" aria-label="切换主题">●</button>
+            <button class="button ghost" id="sampleButton" type="button">演示样例</button>
+            <a class="button primary" href="#test">立即测一测</a>
+          </div>
+        </header>
+
+        <section class="view active" id="homeView" data-title="先弄清你要 AI 帮什么，再生成最适合你的问法。">
+          <div class="hero-grid">
+            <div class="hero-panel">
+              <p class="pill">不是提示词大全，是你的提问方式诊断</p>
+              <h2>把“我想让 AI 帮我”变成一句真正有效的问题。</h2>
+              <p>知技帮你看清自己的 AI 使用目的、表达习惯和卡点，再一键生成适合你的高效提示词、追问方式和检查清单。重点不是学术语，而是让每一次提问更清楚、更省时间。</p>
+              <div class="hero-actions">
+                <a class="button primary large" href="#test">开始 8 题测评</a>
+                <button class="button secondary large" id="demoStartButton" type="button">进入演示模式</button>
+              </div>
+              <div class="demo-flow" aria-label="演示路径">
+                <span>演示路径</span>
+                <strong>测评画像</strong>
+                <i></i>
+                <strong>生成问法</strong>
+                <i></i>
+                <strong>下载分享图</strong>
+                <i></i>
+                <strong>沉淀模板</strong>
+              </div>
+            </div>
+            <div class="visual-board" aria-label="知技产品预览">
+              <div class="orbit orbit-one"></div>
+              <div class="orbit orbit-two"></div>
+              <div class="preview-card passport-card">
+                <span>Skill Passport</span>
+                <strong id="homePersona">工作流组织者</strong>
+                <div class="mini-bars" aria-hidden="true">
+                  <i style="height: 78%"></i><i style="height: 64%"></i><i style="height: 70%"></i><i style="height: 48%"></i><i style="height: 52%"></i><i style="height: 42%"></i>
+                </div>
+              </div>
+              <div class="preview-card sop-card">
+                <span>Prompt Canvas</span>
+                <ol>
+                  <li>澄清真实目的</li>
+                  <li>改写高效问法</li>
+                  <li>建立检查清单</li>
+                </ol>
+              </div>
+              <div class="preview-card skill-card-preview">
+                <span>Skill Card</span>
+                <strong>个人提问模板</strong>
+                <p>目的 -> 背景 -> 输出 -> 检查</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="metrics-row">
+            <article>
+              <strong>Assess</strong>
+              <span>测出任务拆解、需求表达、验证、工具组合等六维习惯。</span>
+            </article>
+            <article>
+              <strong>Generate</strong>
+              <span>把模糊目的改写成可直接复制的个性化提示词。</span>
+            </article>
+            <article>
+              <strong>Accumulate</strong>
+              <span>保存为 Skill Card，形成自己的 AI 提问方法库。</span>
+            </article>
+          </div>
+        </section>
+
+        <section class="view" id="testView" data-title="不是测智商，是测你的 AI 协作习惯。">
+          <div class="test-layout">
+            <div class="question-panel">
+              <div class="progress-line">
+                <span id="questionProgress">1/8</span>
+                <div><i id="progressBar"></i></div>
+              </div>
+              <p class="eyebrow" id="questionDimension">任务拆解</p>
+              <h2 id="questionStem"></h2>
+              <p id="questionHelp"></p>
+              <div class="option-list" id="optionList"></div>
+              <label class="open-answer">
+                <span>补充说明</span>
+                <textarea id="openAnswer" rows="4" placeholder="如果让 AI 帮你做这件事，你会怎么开口？"></textarea>
+              </label>
+              <div class="test-actions">
+                <button class="button secondary" id="prevQuestion" type="button">上一题</button>
+                <button class="button primary" id="nextQuestion" type="button">下一题</button>
+              </div>
+            </div>
+            <aside class="context-panel">
+              <h3>本题关注</h3>
+              <p id="dimensionHint">没有标准答案，选最像你平时做法的一项。</p>
+              <div class="autosave">已自动保存本次进度</div>
+            </aside>
+          </div>
+        </section>
+
+        <section class="view" id="passportView" data-title="你的 AI Skill Passport 已生成。">
+          <div class="passport-layout">
+            <article class="result-hero">
+              <p class="eyebrow">AI Skill Passport</p>
+              <h2 id="passportPersona">还没有画像</h2>
+              <p id="passportSummary">完成测评后，这里会展示你的能力画像、优势短板和下一步建议。</p>
+              <div class="result-actions">
+                <a class="button primary" href="#workbench">生成我的问法</a>
+                <button class="button secondary" id="resetTestButton" type="button">重新测评</button>
+              </div>
+            </article>
+            <div class="radar-card">
+              <canvas id="radarCanvas" width="420" height="420" aria-label="六维能力雷达图"></canvas>
+            </div>
+            <article class="divide-panel">
+              <div class="panel-heading">
+                <div>
+                  <p class="eyebrow">Ability Path</p>
+                  <h2>你现在卡在哪里</h2>
+                </div>
+              </div>
+              <div class="divide-list" id="divideList"></div>
+            </article>
+            <article class="share-panel">
+              <div class="panel-heading">
+                <div>
+                  <p class="eyebrow">Share</p>
+                  <h2>结果分享图</h2>
+                </div>
+                <button class="button secondary" id="downloadShareImage" type="button">下载 PNG</button>
+              </div>
+              <canvas id="shareCanvas" width="1200" height="1600" aria-label="测评结果分享图预览"></canvas>
+            </article>
+            <div class="insight-grid">
+              <article>
+                <h3>优势</h3>
+                <ul id="strengthList"></ul>
+              </article>
+              <article>
+                <h3>短板</h3>
+                <ul id="gapList"></ul>
+              </article>
+              <article>
+                <h3>下一步</h3>
+                <ul id="actionList"></ul>
+              </article>
+            </div>
+            <article class="personal-prompt-panel">
+              <div class="panel-heading">
+                <div>
+                  <p class="eyebrow">Personal Prompt</p>
+                  <h2>下一句可以这样问 AI</h2>
+                </div>
+                <button class="button secondary" id="copyPersonalPrompt" type="button">复制</button>
+              </div>
+              <div class="prompt-item" id="personalPrompt">完成测评后，这里会生成你的个性化提问模板。</div>
+            </article>
+          </div>
+        </section>
+
+        <section class="view" id="workbenchView" data-title="把模糊目的转成高效问法。">
+          <div class="workbench-grid">
+            <aside class="input-panel">
+              <label>
+                <span>我想让 AI 帮我</span>
+                <textarea id="goalInput" rows="5" placeholder="例如：我想让 AI 帮我把一个模糊想法整理成可执行方案。"></textarea>
+              </label>
+              <label>
+                <span>当前使用目的</span>
+                <select id="scenarioInput">
+                  <option>澄清一个模糊想法</option>
+                  <option>拆解一个复杂任务</option>
+                  <option>生成第一版内容</option>
+                  <option>检查和优化结果</option>
+                  <option>设计追问和迭代</option>
+                  <option>沉淀成个人模板</option>
+                </select>
+              </label>
+              <label>
+                <span>背景材料</span>
+                <textarea id="contextInput" rows="5" placeholder="可选。贴入已有想法、背景、受众、限制、参考样例或失败过的提示词。"></textarea>
+              </label>
+              <label>
+                <span>我希望 AI 输出</span>
+                <input id="formatInput" type="text" value="结构化方案 + 下一步行动 + 检查清单">
+              </label>
+              <button class="button primary full" id="generateButton" type="button">生成个性化提示词</button>
+            </aside>
+            <section class="canvas-panel">
+              <div class="panel-heading">
+                <div>
+                  <p class="eyebrow">Prompt Plan</p>
+                  <h2 id="sopTitle">等待生成</h2>
+                </div>
+                <button class="button secondary" id="copySopButton" type="button">复制提示词</button>
+              </div>
+              <div class="step-list" id="stepList"></div>
+            </section>
+            <aside class="asset-panel">
+              <div class="asset-card">
+                <h3>Prompt Pack</h3>
+                <div id="promptPack"></div>
+              </div>
+              <div class="asset-card">
+                <h3>Skill Seed</h3>
+                <div id="skillSeed"></div>
+                <button class="button primary full" id="saveSkillButton" type="button">保存到 Library</button>
+              </div>
+            </aside>
+          </div>
+        </section>
+
+        <section class="view" id="libraryView" data-title="我的 Skill Library">
+          <div class="library-header">
+            <div>
+              <p class="eyebrow">Skill Library</p>
+              <h2>把一次次生成结果，沉淀成你自己的 AI 工作方法。</h2>
+            </div>
+            <input id="librarySearch" type="search" placeholder="搜索技能、场景或标签">
+          </div>
+          <div class="library-grid" id="libraryGrid"></div>
+        </section>
+
+        <section class="view" id="exportView" data-title="把这次结果带走，也把方法带走。">
+          <div class="export-grid">
+            <aside class="input-panel">
+              <label class="checkbox-row"><input type="checkbox" checked data-export="passport"> 画像摘要</label>
+              <label class="checkbox-row"><input type="checkbox" checked data-export="sop"> 提示词方案</label>
+              <label class="checkbox-row"><input type="checkbox" checked data-export="skill"> Skill Card</label>
+              <label class="checkbox-row"><input type="checkbox" checked data-export="prompt"> Prompt Pack</label>
+              <label>
+                <span>Bundle 名称</span>
+                <input id="bundleName" type="text" value="zhiji-skill-bundle">
+              </label>
+              <button class="button primary full" id="downloadMarkdown" type="button">导出 Markdown</button>
+              <button class="button secondary full" id="copyJson" type="button">复制结构化 JSON</button>
+            </aside>
+            <section class="preview-panel">
+              <div class="panel-heading">
+                <div>
+                  <p class="eyebrow">Export Preview</p>
+                  <h2>Markdown / JSON 预览</h2>
+                </div>
+                <button class="button ghost" id="refreshExport" type="button">刷新预览</button>
+              </div>
+              <pre id="exportPreview"></pre>
+            </section>
+          </div>
+        </section>
+      </main>
+    </div>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <script src="./app.js"></script>
+  </body>
+</html>
